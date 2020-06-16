@@ -1,4 +1,4 @@
-# Darabonba support for VS exstion
+# Darabonba support for VS extension
 
 ## Installation
 
