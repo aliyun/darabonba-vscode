@@ -1,0 +1,6 @@
+tea-lang-0.0.1.vsix
+dist/
+node_modules/
+package-lock.json
+.vscode/
+syntaxes/tea.tmLanguage.json

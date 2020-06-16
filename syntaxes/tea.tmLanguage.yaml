@@ -1,0 +1,322 @@
+$schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json'
+name: Tea
+patterns:
+  - include: '#annotation'
+  - include: '#import_declaration'
+  - include: '#extends_declaration'
+  - include: '#type_declaration'
+  - include: '#init_declaration'
+  - include: '#const_declaration'
+  - include: '#model_declaration'
+  - include: '#api_declaration'
+  - include: '#function_declaration'
+repository:
+  statement:
+    patterns:
+      - include: '#annotation'
+  annotation:
+    name: comment.block.documentation.tea
+    match: \/\*\*(\s|.|\n|\r)*?\*\/
+    patterns:
+      - include: '#annotation_body'
+  import_declaration:
+    match: '(import)\s* ([^\s]+)'
+    captures:
+      '1':
+        name: keyword.control.import.tea
+      '2':
+        name: entity.name.type.module.tea
+    end: '[;]'
+    endCaptures:
+      '0':
+        name: punctuation.terminator.statement.tea
+  extends_declaration:
+    match: '(extends)\s* ([^\s]+)'
+    captures:
+      '1':
+        name: keyword.control.extends.tea
+      '2':
+        name: entity.name.type.module.tea
+    end: '[;]'
+    endCaptures:
+      '0':
+        name: punctuation.terminator.statement.tea
+  type_declaration:
+    begin: '(type)\s*(@[^\s]+)\s*(=)\s*'
+    beginCaptures:
+      '1':
+        name: storage.type.type.tea
+      '2':
+        name: entity.name.type.tea
+      '3':
+        name: keyword.operator.assignment.tea
+    end: ;?\n
+    patterns:
+      - include: '#types'
+      - include: '#virual_method_declaration'
+  types:
+    patterns:
+      - include: '#basic_type'
+      - include: '#model_name'
+      - include: '#builtin_model'
+  model_name:
+    match: '\b([A-Za-z][A-Za-z\d]*)\b\s*'
+    captures:
+      '1':
+        name: entity.name.type.tea
+  builtin_model:
+    patterns:
+      - name: support.class.tea
+        match: \$Response
+      - name: support.class.tea
+        match: \$Request
+      - name: support.class.tea
+        match: \$Error
+  modifier:
+    patterns:
+      - match: \bstatic\b
+        name: storage.modifier.static.tea
+      - match: \basync\b
+        name: storage.modifier.async.tea
+  basic_type:
+    match: >-
+      \b(string|boolean|object|number|integer|bytes|any|void|map|readable|int8|int16|int32|int64|uint8|uint16|uint32|uint64|float|double|class)\b
+    captures:
+      '1':
+        name: storage.type.tea
+  init_declaration:
+    match: (init)\s*\(\)
+    captures:
+      '1':
+        name: storage.type.init.tea
+  const_declaration:
+    begin: '(const)\s*\b([A-Za-z][A-Za-z\d]*)\b\s*(\=)\s*'
+    beginCaptures:
+      '1':
+        name: storage.type.const.tea
+      '2':
+        name: variable.other.constant.tea
+      '3':
+        name: keyword.operator.assignment.tea
+    patterns:
+      - include: '#string_literal'
+      - include: '#number_literal'
+      - include: '#boolean_literal'
+    end: '(?=\n|,)'
+  model_declaration:
+    begin: '(model)\s*\b([A-Za-z][A-Za-z\d]*)\b\s*([=]?)\s*(\{)'
+    beginCaptures:
+      '1':
+        name: storage.type.model.tea
+      '2':
+        name: entity.name.type.model.tea
+      '3':
+        name: keyword.operator.assignment.tea
+      '4':
+        name: punctuation.definition.block.tea
+    patterns:
+      - include: '#model_body_declaration'
+    end: '\}'
+    endCaptures:
+      '0':
+        name: punctuation.definition.block.tea
+  model_body_declaration:
+    patterns:
+      - include: '#comment'
+      - include: '#model_body_field_declaration'
+  model_body_field_declaration:
+    begin: '\b([a-z][A-Za-z\d]*)\b\s*(\??)(:)'
+    beginCaptures:
+      '1':
+        name: variable.object.property.tea
+      '2':
+        name: keyword.operator.optional.tea
+      '3':
+        name: punctuation.separator.field-type.tea
+    patterns:
+      - include: '#types'
+      - include: '#sub_model'
+      - include: '#array_type'
+    end: '([,])\n'
+    endCaptures:
+      '1':
+        name: punctuation.separator.comma.tea
+  array_type:
+    begin: '\s*(\[)'
+    beginCaptures:
+      '1':
+        name: meta.brace.square.tea
+    patterns:
+      - include: '#types'
+      - include: '#sub_model'
+      - include: '#array_type'
+    end: '\]'
+    endCaptures:
+      '0':
+        name: meta.brace.square.tea
+  sub_model:
+    begin: '\{'
+    beginCaptures:
+      '0':
+        name: punctuation.definition.block.tea
+    patterns:
+      - include: '#model_body_field_declaration'
+    end: '\}'
+    endCaptures:
+      '0':
+        name: punctuation.definition.block.tea
+  api_declaration:
+    patterns:
+      - include: '#annotation'
+      - include: '#api_keyword'
+      - include: '#api_name'
+      - include: '#api_body'
+  api_body:
+    patterns:
+      - include: '#parameters'
+      - include: '#return_type'
+      - include: '#request_block'
+      - include: '#response_block'
+      - include: '#runtime_block'
+  parameters:
+    name: meta.parameters.tea
+    begin: \(
+    beginCaptures:
+      '0':
+        name: punctuation.definition.parameters.begin.tea
+    patterns:
+      - include: '#parameter_name'
+      - name: punctuation.separator.parameter.tea
+        match: ','
+    end: \)
+    endCaptures:
+      '0':
+        name: punctuation.definition.parameters.end.tea
+  return_type:
+    begin: '\:\s*'
+    beginCaptures:
+      '0':
+        name: punctuation.separator.method-retrun-type.tea
+    patterns:
+      - include: '#types'
+    end: '(?=[\{|\n|;])'
+  id:
+    match: '\b[A-Za-z][A-Za-z\d]*\b'
+    name: entity.name.function.tea
+  api_name:
+    match: '\b[A-Za-z][A-Za-z\d]*\b'
+    name: meta.definition.method.tea entity.name.function.tea
+  api_keyword:
+    match: \b(api)\s+
+    captures:
+      '1':
+        name: storage.type.function.tea
+  parameter_name:
+    begin: '\b([a-z][A-Za-z\d]*)\b\s*(:)'
+    beginCaptures:
+      '1':
+        name: variable.parameter.tea
+      '2':
+        name: punctuation.separator.var-type.tea
+    patterns:
+      - include: '#types'
+      - match: '\b[A-Za-z][A-Za-z\d]*\b'
+        name: entity.name.type.model.tea
+    end: '(?=[\)|,])'
+  request_block:
+    begin: '\{'
+    beginCaptures:
+      '0':
+        name: punctuation.definition.block.tea
+    patterns:
+      - include: '#statements'
+    end: '\}'
+    endCaptures:
+      '0':
+        name: punctuation.definition.block.tea
+  response_block:
+    begin: '(returns)\s* \{'
+    beginCaptures:
+      '1':
+        name: keyword.control.returns.tea
+    end: '\}'
+    patterns:
+      - include: '#statements'
+  statements:
+    patterns:
+      - include: '#assign_stmt'
+      - include: '#return_stmt'
+  assign_stmt:
+    patterns:
+      - include: '#property'
+      - match: \=
+        captures:
+          '0':
+            name: keyword.operator.assignment.tea
+      - include: '#expr'
+      - match: ;
+  return_stmt:
+    begin: (return)\s+
+    beginCaptures:
+      '1':
+        name: keyword.control.flow.tea
+  comment:
+    patterns:
+      - begin: '(^[ \t]+)?((//)(?:\s*((@)internal)(?=\s|$))?)'
+        beginCaptures:
+          '1':
+            name: punctuation.whitespace.comment.leading.tea
+          '2':
+            name: comment.line.double-slash.tea
+          '3':
+            name: punctuation.definition.comment.tea
+          '4':
+            name: storage.type.internaldeclaration.tea
+          '5':
+            name: punctuation.decorator.internaldeclaration.tea
+        end: (?=$)
+        contentName: comment.line.double-slash.tea
+  boolean_literal:
+    match: \b(true|false)\b
+    name: constant.language.boolean.tea
+  number_literal:
+    match: \d+
+    name: constant.numeric.decimal.tea
+  string_literal:
+    patterns:
+      - include: '#qstring-single'
+      - include: '#qstring-double'
+      - include: '#template'
+  string:
+    patterns:
+    - include: '#qstring-single'
+    - include: '#qstring-double'
+    - include: '#template'
+  qstring-double:
+    name: string.quoted.double.tea
+    begin: '"'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.tea }
+    end: '(")|((?:[^\\\n])$)'
+    endCaptures:
+      '1': { name: punctuation.definition.string.end.tea }
+      '2': { name: invalid.illegal.newline.tea }
+    patterns:
+    - include: '#string-character-escape'
+  qstring-single:
+    name: string.quoted.single.tea
+    begin: "'"
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.tea }
+    end: (\')|((?:[^\\\n])$)
+    endCaptures:
+      '1': { name: punctuation.definition.string.end.tea }
+      '2': { name: invalid.illegal.newline.tea }
+    patterns:
+    - include: '#string-character-escape'
+  string-character-escape:
+    name: constant.character.escape.tea
+    match: \\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\{[0-9A-Fa-f]+\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)
+
+scopeName: source.tea
+

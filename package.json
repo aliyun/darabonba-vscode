@@ -1,0 +1,94 @@
+{
+  "name": "tea-lang",
+  "displayName": "TeaDSL",
+  "publisher": "JacksonTian",
+  "description": "The TeaDSL extension for VS Code",
+  "version": "0.5.0",
+  "engines": {
+    "vscode": "^1.41.1"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:tea"
+  ],
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "tea",
+        "path": "./snippets.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "tea",
+        "aliases": [
+          "Tea",
+          "tea"
+        ],
+        "extensions": [
+          ".tea"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tea",
+        "scopeName": "source.tea",
+        "path": "./syntaxes/tea.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "title": "Check the *.tea files",
+        "category": "TeaDSL",
+        "command": "tea.check"
+      }
+    ],
+    "configuration": {
+      "title": "TeaDSL",
+      "properties": {}
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tea-explorer",
+          "title": "Tea Explorer",
+          "icon": "media/dep.svg"
+        }
+      ]
+    },
+    "views": {
+      "tea-explorer": [
+        {
+          "id": "nodeDependencies",
+          "name": "Node Dependencies"
+        }
+      ]
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": "Teafile",
+        "url": "./schemas/teafile.schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -b",
+    "lint": "tslint -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "js-yaml syntaxes/tea.tmLanguage.yaml > syntaxes/tea.tmLanguage.json"
+  },
+  "devDependencies": {
+    "@types/node": "^12",
+    "@types/vscode": "^1.41.0",
+    "js-yaml": "^3.13.1",
+    "tslint": "^5.16.0",
+    "typescript": "^3.7.5"
+  }
+}

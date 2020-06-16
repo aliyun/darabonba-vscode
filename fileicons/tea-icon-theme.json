@@ -1,0 +1,10 @@
+{
+    "iconDefinitions": {
+        "_tea_file": {
+            "iconPath": "./images/tea.png"
+        }
+    },
+    "languageIds": {
+        "tea": "_tea_file"
+    }
+}

@@ -1,0 +1,167 @@
+{
+    "Define a model": {
+        "prefix": "model",
+        "body": [
+            "model $1 {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Define a model"
+    },
+    "Import a module": {
+        "prefix": "import",
+        "body": [
+            "import $1;"
+        ],
+        "description": "Import an external module"
+    },
+    "Extends from a module": {
+        "prefix": "extends",
+        "body": [
+            "extends $1;"
+        ],
+        "description": "Extends from an external module"
+    },
+    "Define an API": {
+        "prefix": "api",
+        "body": [
+            "api ${1:name}(${2:parameters}): ${3:returnType} {",
+            "\t__request.method = '${4:http method}';",
+            "\t__request.pathname = '${5:http path name}';",
+            "\t__request.headers = {",
+            "\t\thost = '${6:host}'",
+            "\t};",
+            "} returns {",
+            "",
+            "} runtime {",
+            "",
+            "}"
+        ],
+        "description": "Define an API"
+    },
+    "Define a function": {
+        "prefix": "function",
+        "body": [
+            "function ${1:name}(${2:parameters}): ${3:returnType} {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Define a function"
+    },
+    "Define a static function": {
+        "prefix": "static",
+        "body": [
+            "static function ${1:name}(${2:parameters}): ${3:returnType} {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Define a static function"
+    },
+    "Define an async function": {
+        "prefix": "async",
+        "body": [
+            "async function ${1:name}(${2:parameters}): ${3:returnType} {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Define an async function"
+    },
+    "Define a static async function": {
+        "prefix": "static async",
+        "body": [
+            "static async function ${1:name}(${2:parameters}): ${3:returnType} {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Define a static async function"
+    },
+    "Try-Catch Statement": {
+        "prefix": "trycatch",
+        "body": [
+            "try {",
+            "\t$0",
+            "} catch (${1:error}) {",
+            "\t",
+            "}"
+        ],
+        "description": "Try-Catch Statement"
+    },
+    "List Loop": {
+        "prefix": "for",
+        "body": [
+            "for (var ${1:item} : ${2:list}) {",
+            "\t$0",
+            "}"
+        ],
+        "description": "List Loop"
+    },
+    "If Statement": {
+        "prefix": "if",
+        "body": [
+            "if (${1:condition}) {",
+            "\t$0",
+            "}"
+        ],
+        "description": "If Statement"
+    },
+    "If-Else Statement": {
+        "prefix": "ifelse",
+        "body": [
+            "if (${1:condition}) {",
+            "\t$0",
+            "} else {",
+            "\t",
+            "}"
+        ],
+        "description": "If-Else Statement"
+    },
+    "Const Statement": {
+        "prefix": "const",
+        "body": [
+            "const ${1:name} = ${2:value};",
+            ""
+        ],
+        "description": "Define a constant"
+    },
+    "Var Statement": {
+        "prefix": "var",
+        "body": [
+            "var ${1:name} = ${2:value};",
+            ""
+        ],
+        "description": "Define a variable"
+    },
+    "New Module Instance": {
+        "prefix": "newmodule",
+        "body": [
+            "new ${1:Module}(${2:parameters});",
+            ""
+        ],
+        "description": "New Module instance"
+    },
+    "New Module Model Instance": {
+        "prefix": "newmodulemodel",
+        "body": [
+            "new ${1:Module}.${2:Model}(${3:parameters}){};",
+            ""
+        ],
+        "description": "New Module model instance"
+    },
+    "New Model Instance": {
+        "prefix": "newmodel",
+        "body": [
+            "new ${1:Model}{};",
+            ""
+        ],
+        "description": "New model instance"
+    },
+    "Throw Statement": {
+        "prefix": "throw",
+        "body": [
+            "throw {",
+            "\tmessage = \"${1:message}\"",
+            "};"
+        ],
+        "description": "Throw Statement"
+    }
+}
