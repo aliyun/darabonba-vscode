@@ -1,14 +1,15 @@
 {
-  "name": "tea-lang",
-  "displayName": "TeaDSL",
+  "name": "darabonba",
+  "displayName": "Darabonba DSL",
   "publisher": "JacksonTian",
-  "description": "The TeaDSL extension for VS Code",
-  "version": "0.5.0",
+  "description": "Darabonba support for VS Code extension",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.41.1"
   },
   "main": "./dist/extension.js",
   "activationEvents": [
+    "onLanguage:dara",
     "onLanguage:tea"
   ],
   "categories": [
@@ -18,24 +19,36 @@
   "contributes": {
     "snippets": [
       {
+        "language": "dara",
+        "path": "./snippets.json"
+      },
+      {
         "language": "tea",
         "path": "./snippets.json"
       }
     ],
     "languages": [
       {
-        "id": "tea",
+        "id": "dara",
         "aliases": [
+          "Dara",
+          "Darabonba",
           "Tea",
           "tea"
         ],
         "extensions": [
+          ".dara",
           ".tea"
         ],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
+      {
+        "language": "dara",
+        "scopeName": "source.dara",
+        "path": "./syntaxes/tea.tmLanguage.json"
+      },
       {
         "language": "tea",
         "scopeName": "source.tea",
@@ -44,31 +57,14 @@
     ],
     "commands": [
       {
-        "title": "Check the *.tea files",
-        "category": "TeaDSL",
-        "command": "tea.check"
+        "title": "Check the *.dara files",
+        "category": "Darabonba",
+        "command": "dara.check"
       }
     ],
     "configuration": {
-      "title": "TeaDSL",
+      "title": "Darabonba DSL",
       "properties": {}
-    },
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "tea-explorer",
-          "title": "Tea Explorer",
-          "icon": "media/dep.svg"
-        }
-      ]
-    },
-    "views": {
-      "tea-explorer": [
-        {
-          "id": "nodeDependencies",
-          "name": "Node Dependencies"
-        }
-      ]
     },
     "jsonValidation": [
       {
@@ -90,5 +86,19 @@
     "js-yaml": "^3.13.1",
     "tslint": "^5.16.0",
     "typescript": "^3.7.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliyun/darabonba-vscode.git"
+  },
+  "keywords": [
+    "Darabonba",
+    "DSL"
+  ],
+  "author": "Jackson Tian",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/aliyun/darabonba-vscode/issues"
+  },
+  "homepage": "https://github.com/aliyun/darabonba-vscode#readme"
 }
