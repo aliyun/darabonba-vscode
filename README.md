@@ -1,3 +1,6 @@
 # Darabonba support for VS exstion
 
-TODO
+
+
+## Publish
+See https://code.visualstudio.com/api/working-with-extensions/publishing-extension .
