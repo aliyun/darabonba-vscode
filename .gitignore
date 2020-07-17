@@ -3,4 +3,4 @@ dist/
 node_modules/
 package-lock.json
 .vscode/
-syntaxes/tea.tmLanguage.json
+syntaxes/*.tmLanguage.json
