@@ -2,6 +2,7 @@
   "name": "darabonba",
   "displayName": "Darabonba DSL",
   "publisher": "JacksonTian",
+  "icon": "images/DarabonbaLogo.png",
   "description": "Darabonba support for VS Code extension",
   "version": "0.1.1",
   "engines": {
@@ -61,7 +62,7 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "npm run compile && npm run build",
     "compile": "tsc -b",
     "lint": "tslint -p ./",
     "watch": "tsc -watch -p ./",

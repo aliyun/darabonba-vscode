@@ -10,6 +10,10 @@ Or launch VS Code Quick Open (`Ctrl + P`), paste the following command, and pres
 ext install jacksontian.darabonba
 ```
 
+## Features
+- syntax highlight
+- code snippts
+
 ## Publish
 See https://code.visualstudio.com/api/working-with-extensions/publishing-extension .
 
