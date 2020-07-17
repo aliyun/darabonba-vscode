@@ -9,8 +9,7 @@
   },
   "main": "./dist/extension.js",
   "activationEvents": [
-    "onLanguage:dara",
-    "onLanguage:tea"
+    "onLanguage:dara"
   ],
   "categories": [
     "Programming Languages",
@@ -21,10 +20,6 @@
       {
         "language": "dara",
         "path": "./snippets.json"
-      },
-      {
-        "language": "tea",
-        "path": "./snippets.json"
       }
     ],
     "languages": [
@@ -32,13 +27,10 @@
         "id": "dara",
         "aliases": [
           "Dara",
-          "Darabonba",
-          "Tea",
-          "tea"
+          "Darabonba"
         ],
         "extensions": [
-          ".dara",
-          ".tea"
+          ".dara"
         ],
         "configuration": "./language-configuration.json"
       }
@@ -47,12 +39,7 @@
       {
         "language": "dara",
         "scopeName": "source.dara",
-        "path": "./syntaxes/tea.tmLanguage.json"
-      },
-      {
-        "language": "tea",
-        "scopeName": "source.tea",
-        "path": "./syntaxes/tea.tmLanguage.json"
+        "path": "./syntaxes/dara.tmLanguage.json"
       }
     ],
     "commands": [
@@ -68,8 +55,8 @@
     },
     "jsonValidation": [
       {
-        "fileMatch": "Teafile",
-        "url": "./schemas/teafile.schema.json"
+        "fileMatch": "Darafile",
+        "url": "./schemas/darafile.schema.json"
       }
     ]
   },
@@ -78,7 +65,7 @@
     "compile": "tsc -b",
     "lint": "tslint -p ./",
     "watch": "tsc -watch -p ./",
-    "build": "js-yaml syntaxes/tea.tmLanguage.yaml > syntaxes/tea.tmLanguage.json"
+    "build": "js-yaml syntaxes/dara.tmLanguage.yaml > syntaxes/dara.tmLanguage.json"
   },
   "devDependencies": {
     "@types/node": "^12",

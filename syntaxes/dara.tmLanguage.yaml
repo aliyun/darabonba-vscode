@@ -15,7 +15,7 @@ repository:
     patterns:
       - include: '#annotation'
   annotation:
-    name: comment.block.documentation.tea
+    name: comment.block.documentation.dara
     match: \/\*\*(\s|.|\n|\r)*?\*\/
     patterns:
       - include: '#annotation_body'
@@ -23,33 +23,33 @@ repository:
     match: '(import)\s* ([^\s]+)'
     captures:
       '1':
-        name: keyword.control.import.tea
+        name: keyword.control.import.dara
       '2':
-        name: entity.name.type.module.tea
+        name: entity.name.type.module.dara
     end: '[;]'
     endCaptures:
       '0':
-        name: punctuation.terminator.statement.tea
+        name: punctuation.terminator.statement.dara
   extends_declaration:
     match: '(extends)\s* ([^\s]+)'
     captures:
       '1':
-        name: keyword.control.extends.tea
+        name: keyword.control.extends.dara
       '2':
-        name: entity.name.type.module.tea
+        name: entity.name.type.module.dara
     end: '[;]'
     endCaptures:
       '0':
-        name: punctuation.terminator.statement.tea
+        name: punctuation.terminator.statement.dara
   type_declaration:
     begin: '(type)\s*(@[^\s]+)\s*(=)\s*'
     beginCaptures:
       '1':
-        name: storage.type.type.tea
+        name: storage.type.type.dara
       '2':
-        name: entity.name.type.tea
+        name: entity.name.type.dara
       '3':
-        name: keyword.operator.assignment.tea
+        name: keyword.operator.assignment.dara
     end: ;?\n
     patterns:
       - include: '#types'
@@ -63,41 +63,41 @@ repository:
     match: '\b([A-Za-z][A-Za-z\d]*)\b\s*'
     captures:
       '1':
-        name: entity.name.type.tea
+        name: entity.name.type.dara
   builtin_model:
     patterns:
-      - name: support.class.tea
+      - name: support.class.dara
         match: \$Response
-      - name: support.class.tea
+      - name: support.class.dara
         match: \$Request
-      - name: support.class.tea
+      - name: support.class.dara
         match: \$Error
   modifier:
     patterns:
       - match: \bstatic\b
-        name: storage.modifier.static.tea
+        name: storage.modifier.static.dara
       - match: \basync\b
-        name: storage.modifier.async.tea
+        name: storage.modifier.async.dara
   basic_type:
     match: >-
       \b(string|boolean|object|number|integer|bytes|any|void|map|readable|int8|int16|int32|int64|uint8|uint16|uint32|uint64|float|double|class)\b
     captures:
       '1':
-        name: storage.type.tea
+        name: storage.type.dara
   init_declaration:
     match: (init)\s*\(\)
     captures:
       '1':
-        name: storage.type.init.tea
+        name: storage.type.init.dara
   const_declaration:
     begin: '(const)\s*\b([A-Za-z][A-Za-z\d]*)\b\s*(\=)\s*'
     beginCaptures:
       '1':
-        name: storage.type.const.tea
+        name: storage.type.const.dara
       '2':
-        name: variable.other.constant.tea
+        name: variable.other.constant.dara
       '3':
-        name: keyword.operator.assignment.tea
+        name: keyword.operator.assignment.dara
     patterns:
       - include: '#string_literal'
       - include: '#number_literal'
@@ -107,19 +107,19 @@ repository:
     begin: '(model)\s*\b([A-Za-z][A-Za-z\d]*)\b\s*([=]?)\s*(\{)'
     beginCaptures:
       '1':
-        name: storage.type.model.tea
+        name: storage.type.model.dara
       '2':
-        name: entity.name.type.model.tea
+        name: entity.name.type.model.dara
       '3':
-        name: keyword.operator.assignment.tea
+        name: keyword.operator.assignment.dara
       '4':
-        name: punctuation.definition.block.tea
+        name: punctuation.definition.block.dara
     patterns:
       - include: '#model_body_declaration'
     end: '\}'
     endCaptures:
       '0':
-        name: punctuation.definition.block.tea
+        name: punctuation.definition.block.dara
   model_body_declaration:
     patterns:
       - include: '#comment'
@@ -128,11 +128,11 @@ repository:
     begin: '\b([a-z][A-Za-z\d]*)\b\s*(\??)(:)'
     beginCaptures:
       '1':
-        name: variable.object.property.tea
+        name: variable.object.property.dara
       '2':
-        name: keyword.operator.optional.tea
+        name: keyword.operator.optional.dara
       '3':
-        name: punctuation.separator.field-type.tea
+        name: punctuation.separator.field-type.dara
     patterns:
       - include: '#types'
       - include: '#sub_model'
@@ -140,12 +140,12 @@ repository:
     end: '([,])\n'
     endCaptures:
       '1':
-        name: punctuation.separator.comma.tea
+        name: punctuation.separator.comma.dara
   array_type:
     begin: '\s*(\[)'
     beginCaptures:
       '1':
-        name: meta.brace.square.tea
+        name: meta.brace.square.dara
     patterns:
       - include: '#types'
       - include: '#sub_model'
@@ -153,18 +153,18 @@ repository:
     end: '\]'
     endCaptures:
       '0':
-        name: meta.brace.square.tea
+        name: meta.brace.square.dara
   sub_model:
     begin: '\{'
     beginCaptures:
       '0':
-        name: punctuation.definition.block.tea
+        name: punctuation.definition.block.dara
     patterns:
       - include: '#model_body_field_declaration'
     end: '\}'
     endCaptures:
       '0':
-        name: punctuation.definition.block.tea
+        name: punctuation.definition.block.dara
   api_declaration:
     patterns:
       - include: '#annotation'
@@ -179,66 +179,66 @@ repository:
       - include: '#response_block'
       - include: '#runtime_block'
   parameters:
-    name: meta.parameters.tea
+    name: meta.parameters.dara
     begin: \(
     beginCaptures:
       '0':
-        name: punctuation.definition.parameters.begin.tea
+        name: punctuation.definition.parameters.begin.dara
     patterns:
       - include: '#parameter_name'
-      - name: punctuation.separator.parameter.tea
+      - name: punctuation.separator.parameter.dara
         match: ','
     end: \)
     endCaptures:
       '0':
-        name: punctuation.definition.parameters.end.tea
+        name: punctuation.definition.parameters.end.dara
   return_type:
     begin: '\:\s*'
     beginCaptures:
       '0':
-        name: punctuation.separator.method-retrun-type.tea
+        name: punctuation.separator.method-retrun-type.dara
     patterns:
       - include: '#types'
     end: '(?=[\{|\n|;])'
   id:
     match: '\b[A-Za-z][A-Za-z\d]*\b'
-    name: entity.name.function.tea
+    name: entity.name.function.dara
   api_name:
     match: '\b[A-Za-z][A-Za-z\d]*\b'
-    name: meta.definition.method.tea entity.name.function.tea
+    name: meta.definition.method.dara entity.name.function.dara
   api_keyword:
     match: \b(api)\s+
     captures:
       '1':
-        name: storage.type.function.tea
+        name: storage.type.function.dara
   parameter_name:
     begin: '\b([a-z][A-Za-z\d]*)\b\s*(:)'
     beginCaptures:
       '1':
-        name: variable.parameter.tea
+        name: variable.parameter.dara
       '2':
-        name: punctuation.separator.var-type.tea
+        name: punctuation.separator.var-type.dara
     patterns:
       - include: '#types'
       - match: '\b[A-Za-z][A-Za-z\d]*\b'
-        name: entity.name.type.model.tea
+        name: entity.name.type.model.dara
     end: '(?=[\)|,])'
   request_block:
     begin: '\{'
     beginCaptures:
       '0':
-        name: punctuation.definition.block.tea
+        name: punctuation.definition.block.dara
     patterns:
       - include: '#statements'
     end: '\}'
     endCaptures:
       '0':
-        name: punctuation.definition.block.tea
+        name: punctuation.definition.block.dara
   response_block:
     begin: '(returns)\s* \{'
     beginCaptures:
       '1':
-        name: keyword.control.returns.tea
+        name: keyword.control.returns.dara
     end: '\}'
     patterns:
       - include: '#statements'
@@ -252,36 +252,36 @@ repository:
       - match: \=
         captures:
           '0':
-            name: keyword.operator.assignment.tea
+            name: keyword.operator.assignment.dara
       - include: '#expr'
       - match: ;
   return_stmt:
     begin: (return)\s+
     beginCaptures:
       '1':
-        name: keyword.control.flow.tea
+        name: keyword.control.flow.dara
   comment:
     patterns:
       - begin: '(^[ \t]+)?((//)(?:\s*((@)internal)(?=\s|$))?)'
         beginCaptures:
           '1':
-            name: punctuation.whitespace.comment.leading.tea
+            name: punctuation.whitespace.comment.leading.dara
           '2':
-            name: comment.line.double-slash.tea
+            name: comment.line.double-slash.dara
           '3':
-            name: punctuation.definition.comment.tea
+            name: punctuation.definition.comment.dara
           '4':
-            name: storage.type.internaldeclaration.tea
+            name: storage.type.internaldeclaration.dara
           '5':
-            name: punctuation.decorator.internaldeclaration.tea
+            name: punctuation.decorator.internaldeclaration.dara
         end: (?=$)
-        contentName: comment.line.double-slash.tea
+        contentName: comment.line.double-slash.dara
   boolean_literal:
     match: \b(true|false)\b
-    name: constant.language.boolean.tea
+    name: constant.language.boolean.dara
   number_literal:
     match: \d+
-    name: constant.numeric.decimal.tea
+    name: constant.numeric.decimal.dara
   string_literal:
     patterns:
       - include: '#qstring-single'
@@ -293,30 +293,30 @@ repository:
     - include: '#qstring-double'
     - include: '#template'
   qstring-double:
-    name: string.quoted.double.tea
+    name: string.quoted.double.dara
     begin: '"'
     beginCaptures:
-      '0': { name: punctuation.definition.string.begin.tea }
+      '0': { name: punctuation.definition.string.begin.dara }
     end: '(")|((?:[^\\\n])$)'
     endCaptures:
-      '1': { name: punctuation.definition.string.end.tea }
-      '2': { name: invalid.illegal.newline.tea }
+      '1': { name: punctuation.definition.string.end.dara }
+      '2': { name: invalid.illegal.newline.dara }
     patterns:
     - include: '#string-character-escape'
   qstring-single:
-    name: string.quoted.single.tea
+    name: string.quoted.single.dara
     begin: "'"
     beginCaptures:
-      '0': { name: punctuation.definition.string.begin.tea }
+      '0': { name: punctuation.definition.string.begin.dara }
     end: (\')|((?:[^\\\n])$)
     endCaptures:
-      '1': { name: punctuation.definition.string.end.tea }
-      '2': { name: invalid.illegal.newline.tea }
+      '1': { name: punctuation.definition.string.end.dara }
+      '2': { name: invalid.illegal.newline.dara }
     patterns:
     - include: '#string-character-escape'
   string-character-escape:
-    name: constant.character.escape.tea
+    name: constant.character.escape.dara
     match: \\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\{[0-9A-Fa-f]+\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)
 
-scopeName: source.tea
+scopeName: source.dara
 
