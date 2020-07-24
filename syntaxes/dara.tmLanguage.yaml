@@ -1,68 +1,68 @@
-$schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json'
+$schema: "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json"
 name: Tea
 patterns:
-  - include: '#annotation'
-  - include: '#import_declaration'
-  - include: '#extends_declaration'
-  - include: '#type_declaration'
-  - include: '#init_declaration'
-  - include: '#const_declaration'
-  - include: '#model_declaration'
-  - include: '#api_declaration'
-  - include: '#function_declaration'
+  - include: "#annotation"
+  - include: "#import_declaration"
+  - include: "#extends_declaration"
+  - include: "#type_declaration"
+  - include: "#init_declaration"
+  - include: "#const_declaration"
+  - include: "#model_declaration"
+  - include: "#api_declaration"
+  - include: "#function_declaration"
 repository:
   statement:
     patterns:
-      - include: '#annotation'
+      - include: "#annotation"
   annotation:
     name: comment.block.documentation.dara
     match: \/\*\*(\s|.|\n|\r)*?\*\/
     patterns:
-      - include: '#annotation_body'
+      - include: "#annotation_body"
   import_declaration:
     match: '(import)\s* ([^\s]+)'
     captures:
-      '1':
+      "1":
         name: keyword.control.import.dara
-      '2':
+      "2":
         name: entity.name.type.module.dara
-    end: '[;]'
+    end: "[;]"
     endCaptures:
-      '0':
+      "0":
         name: punctuation.terminator.statement.dara
   extends_declaration:
     match: '(extends)\s* ([^\s]+)'
     captures:
-      '1':
+      "1":
         name: keyword.control.extends.dara
-      '2':
+      "2":
         name: entity.name.type.module.dara
-    end: '[;]'
+    end: "[;]"
     endCaptures:
-      '0':
+      "0":
         name: punctuation.terminator.statement.dara
   type_declaration:
     begin: '(type)\s*(@[^\s]+)\s*(=)\s*'
     beginCaptures:
-      '1':
+      "1":
         name: storage.type.type.dara
-      '2':
+      "2":
         name: entity.name.type.dara
-      '3':
+      "3":
         name: keyword.operator.assignment.dara
     end: ;?\n
     patterns:
-      - include: '#types'
-      - include: '#virual_method_declaration'
+      - include: "#types"
+      - include: "#virual_method_declaration"
   types:
     patterns:
-      - include: '#basic_type'
-      - include: '#model_name'
-      - include: '#builtin_model'
+      - include: "#basic_type"
+      - include: "#model_name"
+      - include: "#builtin_model"
   model_name:
     match: '\b([A-Za-z][A-Za-z\d]*)\b\s*'
     captures:
-      '1':
+      "1":
         name: entity.name.type.dara
   builtin_model:
     patterns:
@@ -82,200 +82,459 @@ repository:
     match: >-
       \b(string|boolean|object|number|integer|bytes|any|void|map|readable|int8|int16|int32|int64|uint8|uint16|uint32|uint64|float|double|class)\b
     captures:
-      '1':
+      "1":
         name: storage.type.dara
   init_declaration:
     match: (init)\s*\(\)
     captures:
-      '1':
+      "1":
         name: storage.type.init.dara
   const_declaration:
     begin: '(const)\s*\b([A-Za-z][A-Za-z\d]*)\b\s*(\=)\s*'
     beginCaptures:
-      '1':
+      "1":
         name: storage.type.const.dara
-      '2':
+      "2":
         name: variable.other.constant.dara
-      '3':
+      "3":
         name: keyword.operator.assignment.dara
     patterns:
-      - include: '#string_literal'
-      - include: '#number_literal'
-      - include: '#boolean_literal'
+      - include: "#string_literal"
+      - include: "#number_literal"
+      - include: "#boolean_literal"
     end: '(?=\n|,)'
   model_declaration:
     begin: '(model)\s*\b([A-Za-z][A-Za-z\d]*)\b\s*([=]?)\s*(\{)'
     beginCaptures:
-      '1':
+      "1":
         name: storage.type.model.dara
-      '2':
+      "2":
         name: entity.name.type.model.dara
-      '3':
+      "3":
         name: keyword.operator.assignment.dara
-      '4':
+      "4":
         name: punctuation.definition.block.dara
     patterns:
-      - include: '#model_body_declaration'
+      - include: "#model_body_declaration"
     end: '\}'
     endCaptures:
-      '0':
+      "0":
         name: punctuation.definition.block.dara
   model_body_declaration:
     patterns:
-      - include: '#comment'
-      - include: '#model_body_field_declaration'
+      - include: "#comment"
+      - include: "#model_body_field_declaration"
   model_body_field_declaration:
     begin: '\b([a-z][A-Za-z\d]*)\b\s*(\??)(:)'
     beginCaptures:
-      '1':
+      "1":
         name: variable.object.property.dara
-      '2':
+      "2":
         name: keyword.operator.optional.dara
-      '3':
+      "3":
         name: punctuation.separator.field-type.dara
     patterns:
-      - include: '#types'
-      - include: '#sub_model'
-      - include: '#array_type'
+      - include: "#types"
+      - include: "#sub_model"
+      - include: "#array_type"
     end: '([,])\n'
     endCaptures:
-      '1':
+      "1":
         name: punctuation.separator.comma.dara
   array_type:
     begin: '\s*(\[)'
     beginCaptures:
-      '1':
+      "1":
         name: meta.brace.square.dara
     patterns:
-      - include: '#types'
-      - include: '#sub_model'
-      - include: '#array_type'
+      - include: "#types"
+      - include: "#sub_model"
+      - include: "#array_type"
     end: '\]'
     endCaptures:
-      '0':
+      "0":
         name: meta.brace.square.dara
   sub_model:
     begin: '\{'
     beginCaptures:
-      '0':
+      "0":
         name: punctuation.definition.block.dara
     patterns:
-      - include: '#model_body_field_declaration'
+      - include: "#model_body_field_declaration"
     end: '\}'
     endCaptures:
-      '0':
+      "0":
         name: punctuation.definition.block.dara
   api_declaration:
     patterns:
-      - include: '#annotation'
-      - include: '#api_keyword'
-      - include: '#api_name'
-      - include: '#api_body'
+      - include: "#annotation"
+      - include: "#api_keyword"
+      - include: "#api_name"
+      - include: "#api_body"
   api_body:
     patterns:
-      - include: '#parameters'
-      - include: '#return_type'
-      - include: '#request_block'
-      - include: '#response_block'
-      - include: '#runtime_block'
+      - include: "#parameters"
+      - include: "#return_type"
+      - include: "#request_block"
+      - include: "#response_block"
+      - include: "#runtime_block"
   parameters:
     name: meta.parameters.dara
     begin: \(
     beginCaptures:
-      '0':
+      "0":
         name: punctuation.definition.parameters.begin.dara
     patterns:
-      - include: '#parameter_name'
+      - include: "#parameter_name"
       - name: punctuation.separator.parameter.dara
-        match: ','
+        match: ","
     end: \)
     endCaptures:
-      '0':
+      "0":
         name: punctuation.definition.parameters.end.dara
   return_type:
     begin: '\:\s*'
     beginCaptures:
-      '0':
+      "0":
         name: punctuation.separator.method-retrun-type.dara
     patterns:
-      - include: '#types'
+      - include: "#types"
     end: '(?=[\{|\n|;])'
   id:
-    match: '\b[A-Za-z][A-Za-z\d]*\b'
+    match: '\b[A-Za-z][A-Za-z\d_\-]*\b'
+    name: entity.name.function.dara
+  vid:
+    match: '\@\b[A-Za-z][A-Za-z\d_]*\b'
     name: entity.name.function.dara
   api_name:
     match: '\b[A-Za-z][A-Za-z\d]*\b'
-    name: meta.definition.method.dara entity.name.function.dara
+    name: entity.name.function.dara
   api_keyword:
     match: \b(api)\s+
     captures:
-      '1':
+      "1":
         name: storage.type.function.dara
   parameter_name:
     begin: '\b([a-z][A-Za-z\d]*)\b\s*(:)'
     beginCaptures:
-      '1':
+      "1":
         name: variable.parameter.dara
-      '2':
+      "2":
         name: punctuation.separator.var-type.dara
     patterns:
-      - include: '#types'
+      - include: "#types"
       - match: '\b[A-Za-z][A-Za-z\d]*\b'
         name: entity.name.type.model.dara
     end: '(?=[\)|,])'
   request_block:
     begin: '\{'
     beginCaptures:
-      '0':
+      "0":
         name: punctuation.definition.block.dara
     patterns:
-      - include: '#statements'
+      - include: "#statements"
     end: '\}'
     endCaptures:
-      '0':
+      "0":
         name: punctuation.definition.block.dara
   response_block:
-    begin: '(returns)\s* \{'
+    begin: '\s*(returns)\s*\{'
     beginCaptures:
-      '1':
+      "1":
         name: keyword.control.returns.dara
     end: '\}'
     patterns:
-      - include: '#statements'
+      - include: "#statements"
+  runtime_block:
+    begin: '\s*(runtime)\s*(?=\{)'
+    beginCaptures:
+      "1":
+        name: keyword.control.returns.dara
+    patterns:
+      - include: "#mapExpr"
   statements:
     patterns:
-      - include: '#assign_stmt'
-      - include: '#return_stmt'
-  assign_stmt:
+      - include: "#declare_stmt"
+      - include: "#if_stmt"
+      - include: "#for_stmt"
+      - include: "#while_stmt"
+      - include: "#return_stmt"
+      - include: "#retry_stmt"
+      - include: "#break_stmt"
+      - include: "#throw_stmt"
+      - include: "#expr_stmt"
+  expr_stmt:
     patterns:
-      - include: '#property'
-      - match: \=
-        captures:
-          '0':
-            name: keyword.operator.assignment.dara
-      - include: '#expr'
-      - match: ;
-  return_stmt:
-    begin: (return)\s+
+      - include: "#expr"
+      - match: ";"
+  while_stmt:
+    begin: '\s*(while)\s*\(\s*'
     beginCaptures:
-      '1':
+      "1":
+        name: keyword.control.conditional.dara
+    patterns:
+      - include: "#expr"
+      - match: '\s*\)\s*\{\s*'
+      - include: "#statements"
+    end: '\s*\}\s*'
+  for_stmt:
+    begin: '\s*(for)\s*\(\s*(var)\s*'
+    beginCaptures:
+      "1":
+        name: keyword.control.conditional.dara
+      "2":
+        name: keyword.other.var.dara
+    patterns:
+      - match: '(\b[A-Za-z][A-Za-z\d_\-]*\b)\s*\:\s*'
+        name: meta.definition.variable.name.dara
+      - include: "#expr"
+      - match: '\s*\)\s*\{\s*'
+      - include: "#statements"
+    end: '\s*\}\s*'
+  if_stmt:
+    patterns:
+      - include: "#pure_if_stmt"
+      - include: "#else_if_stmt"
+      - include: "#else_stmt"
+  pure_if_stmt:
+    begin: '\s*(if)\s*'
+    beginCaptures:
+      "1":
+        name: keyword.control.conditional.dara
+    patterns:
+      - match: '\(\s*'
+      - include: "#expr"
+      - match: '\s*(\))\s*(\{)\s*'
+        captures:
+          "1":
+            name: keyword.operator.ifbracket.dara
+          "2":
+            name: keyword.operator.ifbrace.dara
+      - include: "#statements"
+    end: '\s*\}\s*'
+  else_if_stmt:
+    begin: '(else)\s+(if)\s*\(\s*'
+    beginCaptures:
+      "1":
+        name: keyword.control.conditional.else.dara
+      "2":
+        name: keyword.control.conditional.else.dara
+    patterns:
+      - include: "#expr"
+      - match: '\s*(\))\s*(\{)\s*'
+        captures:
+          "1":
+            name: keyword.operator.ifbracket.dara
+          "2":
+            name: keyword.operator.ifbrace.dara
+      - include: "#statements"
+    end: '\s*(\})\s*'
+    endCaptures:
+      "1":
+        name: keyword.operator.ifbrace.dara
+  else_stmt:
+    begin: '(\belse\b)\s*\{\s*'
+    beginCaptures:
+      "1":
+        name: keyword.control.conditional.dara
+    patterns:
+      - include: "#statements"
+    end: '\s*(\})\s*'
+    endCaptures:
+      "1":
+        name: keyword.operator.ifbrace.dara
+  declare_stmt:
+    begin: '(var)\s+([A-Za-z][A-Za-z\d_]*)\s*(=)\s*'
+    beginCaptures:
+      "1":
+        name: keyword.other.var.dara
+      "2":
+        name: meta.definition.variable.name.dara
+      "3":
+        name: keyword.operator.equal.dara
+    end: ";"
+    patterns:
+      - include: "#expr"
+  expr:
+    patterns:
+      - include: "#notExpr"
+      - include: "#expr_item"
+  expr_item:
+    patterns:
+      - include: "#propertyAccessExpr"
+      - include: "#mapAccessExpr"
+      - include: "#literal"
+      - include: "#arrayExpr"
+      - include: "#callExpr"
+      - include: "#mapExpr"
+      - include: "#assignExpr"
+  vid_name:
+    match: '\s*\@[A-Za-z][A-Za-z\d_]*\s*'
+    name: entity.name.variable.dara
+  id_name:
+    match: '[A-Za-z][A-Za-z\d_\-]*'
+    name: entity.name.variable.id.dara
+  assignExpr:
+    begin: '(?=\s*@?[A-Za-z][A-Za-z\d_]*[\[\.])'
+    patterns:
+      - include: "#mapAccessExpr"
+      - match: '\s*\=\s*'
+      - include: "#expr"
+  mapAccessExpr:
+    begin: '\s*(@?[A-Za-z][A-Za-z\d_]*)(?=[\[\.])'
+    beginCaptures:
+      "1":
+        name: entity.name.variable.dara
+    patterns:
+      - include: "#subProperty"
+      - match: '\s*\[\s*'
+      - include: "#expr"
+    end: '\s*\]\s*'
+  propertyAccessExpr:
+    begin: '\s*(@?[A-Za-z][A-Za-z\d_]*)(?=\.)'
+    beginCaptures:
+      "1":
+        name: entity.name.variable.dara
+    patterns:
+      - include: "#subProperty"
+    end: '\.([A-Za-z][A-Za-z\d_\-]*)\s*(?!\.)'
+    endCaptures:
+      "1":
+        name: entity.name.variable.acesss.dara
+  subProperty:
+    match: '\.([A-Za-z][A-Za-z\d_\-]*)'
+    captures:
+      "1":
+        name: entity.name.variable.acesss.dara
+  andExpr:
+    patterns:
+      - include: "#expr_item"
+      - match: '\s*\&\&\s*'
+      - include: "#expr"
+  orExpr:
+    patterns:
+      - include: "#expr_item"
+      - match: '\s*\|\|\s*'
+      - include: "#expr"
+  notExpr:
+    begin: '\s*\!\s*'
+    patterns:
+      - include: "#expr"
+  arrayExpr:
+    begin: '\s*\[\s*'
+    patterns:
+      - include: "#expr"
+      - match: '\s*\,\s*'
+        name: keyword.operator.comma.array.dara
+      - include: "#expr"
+    end: '\s*\]\s*'
+  mapExpr:
+    begin: '\s*\{\s*'
+    end: '\s*\}\s*'
+    patterns:
+      - include: "#objectField"
+      - include: "#extendField"
+  objectField:
+    begin: '([A-Za-z][A-Za-z\d_\-]*)\s*\=\s*'
+    beginCaptures:
+      "1":
+        name: entity.name.variable.property.dara
+    patterns:
+      - include: "#expr"
+    end: '\s*\,\s*'
+  extendField:
+    begin: '\s*\.\.\.\s*'
+    patterns:
+      - include: "#expr"
+    end: '\s*\,\s*'
+  callExpr:
+    patterns:
+      - include: "#method_callExpr"
+      - include: "#virtual_method_callExpr"
+  virtual_method_callExpr:
+    begin: '\s*(\@[A-Za-z][A-Za-z\d]*)\s*\(\s*'
+    beginCaptures:
+      "1":
+        name: entity.name.function.virtual.dara
+    patterns:
+      - include: "#method_call_parameters"
+    end: '\s*\)\s*'
+  method_callExpr:
+    begin: '\s*([A-Za-z][A-Za-z\d]*)\s*\(\s*'
+    beginCaptures:
+      "1":
+        name: entity.name.function.call.dara
+    patterns:
+      - include: "#expr"
+      - match: '\s*\,\s*'
+    end: '\s*\)\s*'
+  module_callExpr:
+    begin: '\s*\b([A-Za-z][A-Za-z\d]*)\b\s*\.\s*'
+    beginCaptures:
+      "1":
+        name: variable.other.module.dara
+    patterns:
+      - match: '\s*\b([A-Za-z][A-Za-z\d]*)\b\s*'
+        name: entity.name.function.dara
+      - match: '\s*\(\s*'
+      - include: "#method_call_parameters"
+    end: '\s*\)\s*'
+  method_call_parameters:
+    patterns:
+      - include: "#expr"
+      - match: '\s*\,\s*'
+      - include: "#expr"
+  literal:
+    patterns:
+      - include: "#string_literal"
+      - include: "#number_literal"
+      - include: "#boolean_literal"
+      - include: "#null_literal"
+  return_stmt:
+    begin: '(return)\s+'
+    beginCaptures:
+      "1":
         name: keyword.control.flow.dara
+    patterns:
+      - include: "#expr"
+    end: '\;'
+  retry_stmt:
+    match: '(retry)\s*\;'
+    captures:
+      "1":
+        name: keyword.control.flow.dara
+  break_stmt:
+    match: '(break)\s*\;'
+    captures:
+      "1":
+        name: keyword.control.flow.dara
+  throw_stmt:
+    begin: '(throw)\s+'
+    beginCaptures:
+      "1":
+        name: keyword.control.flow.dara
+    patterns:
+      - include: "#expr"
+    end: '\;'
   comment:
     patterns:
       - begin: '(^[ \t]+)?((//)(?:\s*((@)internal)(?=\s|$))?)'
         beginCaptures:
-          '1':
+          "1":
             name: punctuation.whitespace.comment.leading.dara
-          '2':
+          "2":
             name: comment.line.double-slash.dara
-          '3':
+          "3":
             name: punctuation.definition.comment.dara
-          '4':
+          "4":
             name: storage.type.internaldeclaration.dara
-          '5':
+          "5":
             name: punctuation.decorator.internaldeclaration.dara
         end: (?=$)
         contentName: comment.line.double-slash.dara
+  null_literal:
+    match: \b(null)\b
+    name: constant.language.null.dara
   boolean_literal:
     match: \b(true|false)\b
     name: constant.language.boolean.dara
@@ -284,39 +543,61 @@ repository:
     name: constant.numeric.decimal.dara
   string_literal:
     patterns:
-      - include: '#qstring-single'
-      - include: '#qstring-double'
-      - include: '#template'
+      - include: "#qstring-single"
+      - include: "#qstring-double"
+      - include: "#template"
   string:
     patterns:
-    - include: '#qstring-single'
-    - include: '#qstring-double'
-    - include: '#template'
+      - include: "#qstring-single"
+      - include: "#qstring-double"
+  template:
+    begin: '\s*(\`)'
+    beginCaptures:
+      "1":
+        name: string.template.dara
+    patterns:
+      - include: "#tempalte-element"
+      - match: '.*?(?=(\$\{|\`))'
+        name: string.template.dara
+    end: '(\`)'
+    endCaptures:
+      "1":
+        name: string.template.end.dara
+  tempalte-element:
+    begin: '(\$\{)'
+    beginCaptures:
+      "1":
+        name: punctuation.definition.template-expression.begin.dara
+    patterns:
+      - include: "#expr"
+    end: '(\})'
+    endCaptures:
+      "1":
+        name: punctuation.definition.template-expression.end.dara
   qstring-double:
     name: string.quoted.double.dara
     begin: '"'
     beginCaptures:
-      '0': { name: punctuation.definition.string.begin.dara }
+      "0": { name: punctuation.definition.string.begin.dara }
     end: '(")|((?:[^\\\n])$)'
     endCaptures:
-      '1': { name: punctuation.definition.string.end.dara }
-      '2': { name: invalid.illegal.newline.dara }
+      "1": { name: punctuation.definition.string.end.dara }
+      "2": { name: invalid.illegal.newline.dara }
     patterns:
-    - include: '#string-character-escape'
+      - include: "#string-character-escape"
   qstring-single:
     name: string.quoted.single.dara
     begin: "'"
     beginCaptures:
-      '0': { name: punctuation.definition.string.begin.dara }
+      "0": { name: punctuation.definition.string.begin.dara }
     end: (\')|((?:[^\\\n])$)
     endCaptures:
-      '1': { name: punctuation.definition.string.end.dara }
-      '2': { name: invalid.illegal.newline.dara }
+      "1": { name: punctuation.definition.string.end.dara }
+      "2": { name: invalid.illegal.newline.dara }
     patterns:
-    - include: '#string-character-escape'
+      - include: "#string-character-escape"
   string-character-escape:
     name: constant.character.escape.dara
     match: \\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\{[0-9A-Fa-f]+\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)
 
 scopeName: source.dara
-
