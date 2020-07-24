@@ -1,7 +1,7 @@
 {
   "name": "darabonba",
   "displayName": "Darabonba DSL",
-  "publisher": "JacksonTian",
+  "publisher": "darabonba",
   "icon": "images/DarabonbaLogo.png",
   "description": "Darabonba support for VS Code extension",
   "version": "0.1.2",
@@ -14,7 +14,8 @@
   ],
   "categories": [
     "Programming Languages",
-    "Snippets"
+    "Snippets",
+    "Formatters"
   ],
   "contributes": {
     "snippets": [
@@ -31,7 +32,8 @@
           "Darabonba"
         ],
         "extensions": [
-          ".dara"
+          ".dara",
+          ".tea"
         ],
         "configuration": "./language-configuration.json"
       }
@@ -76,8 +78,8 @@
     "typescript": "^3.7.5"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aliyun/darabonba-vscode.git"
+    "type": "http",
+    "url": "https://github.com/aliyun/darabonba-vscode.git"
   },
   "keywords": [
     "Darabonba",
@@ -88,5 +90,9 @@
   "bugs": {
     "url": "https://github.com/aliyun/darabonba-vscode/issues"
   },
-  "homepage": "https://github.com/aliyun/darabonba-vscode#readme"
+  "homepage": "https://github.com/aliyun/darabonba-vscode#readme",
+  "dependencies": {
+    "@darabonba/cli": "^1",
+    "@darabonba/parser": "^1"
+  }
 }

@@ -4,3 +4,4 @@ node_modules/
 package-lock.json
 .vscode/
 syntaxes/*.tmLanguage.json
+.DS_Store
