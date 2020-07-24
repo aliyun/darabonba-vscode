@@ -7,12 +7,13 @@ Open VS Code and press `F1` or `Ctrl + Shift + P` to open command palette, selec
 Or launch VS Code Quick Open (`Ctrl + P`), paste the following command, and press enter.
 
 ```sh
-ext install jacksontian.darabonba
+ext install darabonba.darabonba
 ```
 
 ## Features
 - syntax highlight
 - code snippts
+- formatting
 
 ## Publish
 See https://code.visualstudio.com/api/working-with-extensions/publishing-extension .
