@@ -4,7 +4,7 @@
   "publisher": "darabonba",
   "icon": "images/DarabonbaLogo.png",
   "description": "Darabonba support for VS Code extension",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.41.1"
   },
