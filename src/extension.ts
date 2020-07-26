@@ -24,6 +24,8 @@ class DaraCompletionItemProvider implements CompletionItemProvider {
 
 export function activate(context: ExtensionContext) {
 	context.subscriptions.push(languages.registerCompletionItemProvider('dara', new DaraCompletionItemProvider(), '.', '\"'));
+
+	// formatter implemented using API
 	languages.registerDocumentFormattingEditProvider({ scheme: "file", language: "dara" }, {
 		provideDocumentFormattingEdits(document: TextDocument): TextEdit[] {
 			const origContent = document.getText();
